@@ -16,6 +16,7 @@ public class Account {
 	String username_of_account_holder;
 	String account_type; //"Standard" or "Saving"
 	Date account_opening_date;
+	
 	public String getAccount_number() {
 		return account_number;
 	}

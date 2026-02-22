@@ -10,9 +10,11 @@ public class Transaction {
 		this.transaction_amount = transaction_amount;
 		this.transaction_date = transaction_date;
 	}
+	
 	String account_number;
 	double transaction_amount;
 	Date transaction_date;
+	
 	public String getAccount_number() {
 		return account_number;
 	}
