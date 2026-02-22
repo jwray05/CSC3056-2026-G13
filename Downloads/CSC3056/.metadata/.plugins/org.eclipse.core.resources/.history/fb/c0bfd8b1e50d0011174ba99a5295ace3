@@ -1,0 +1,5 @@
+package minilab.javarefresher.simplebankingapp;
+
+public class Account {
+
+}
