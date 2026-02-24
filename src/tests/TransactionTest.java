@@ -2,13 +2,18 @@ package tests;
 
 
 import model.Transaction;
+import utils.TestUtils;
+
 import java.util.*;
+import java.util.Date;
 
 public class TransactionTest {
 
 	public static void main(String[] args) {
 		testTransactionConstructor();
 		testTransactionSetters();
+		testTransactionGetters();
+		testTransactionToString();
 
 	}
 	
@@ -46,6 +51,61 @@ public class TransactionTest {
 
        
     }
+	
+	private static void testTransactionToString() {
+		String testAccountNumber = "6767";
+		double testAmount = 100.00;
+		Date testDate = new Date();
+		Transaction testTrans = new Transaction (testAccountNumber, testAmount, testDate);
+		
+		String expectedString = testAccountNumber + ", "  + testAmount + ", " + testDate;
+		
+		System.out.println("Testing method: testToString");
+		String test_case_name = "testToString";
+		
+		if (testTrans.toString().equals(expectedString)) {
+			TestUtils.printTestPassed(test_case_name);
+		}else {
+			TestUtils.printTestFailed(test_case_name);
+		
+		}
+		
+	}
+
+	private static void testTransactionGetters() {
+
+	    
+	    String test_account_number = "6867";
+	    double test_transaction_amount = 100.00;
+	    Date test_transaction_date = new Date();
+	    Transaction testTrans = new Transaction (test_account_number, test_transaction_amount, test_transaction_date);
+	    
+	    System.out.println("Starting the assertions of the test method: testTransactionGetters");
+	    
+	    
+	    if (testTrans.getAccount_number().equals(test_account_number)) {
+	        utils.TestUtils.printTestPassed("getAccount_number");
+	    } else {
+	        utils.TestUtils.printTestFailed("getAccount_number");
+	    }
+	    
+	    
+	    if (testTrans.getTransaction_amount() == test_transaction_amount) {
+	        utils.TestUtils.printTestPassed("getTransaction_amount");
+	    } else {
+	        utils.TestUtils.printTestFailed("getTransaction_amount");
+	    }
+	    
+	   
+	    if (testTrans.getTransaction_date().equals(test_transaction_date)) {
+	        utils.TestUtils.printTestPassed("getTransaction_date");
+	    } else {
+	        utils.TestUtils.printTestFailed("getTransaction_date");
+	    }
+	}
+		
+
+	
 	
 	public static void testTransactionSetters() {
 	    Transaction testTransaction = new Transaction("0", 0.0, new Date());
