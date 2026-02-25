@@ -2,3 +2,6 @@
 /TransactionTest.class
 /UserTest.class
 /SimpleBankingAppTest.class
+/UserControllerTests.class
+/UserControllerTest.class
+/AccountControllerTest.class
