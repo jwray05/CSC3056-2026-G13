@@ -117,7 +117,7 @@ public class SimpleBankingAppTest {
 		// we need to call our test cases (methods)
 		testLoadData();
 		testDeposits();
-		// testWithdrawals(); -- uncomment this call, when you have developed the test method (test case)
+		testWithdrawals(); 
 	}
 
 }
