@@ -26,4 +26,15 @@ public class UserController {
 		return users;
 	}
 	
+	public static User registerUser(String email, String password, String firstName, String lastName, String mobileNumber) {
+		
+		String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[a-zA-Z]{2,6}$";
+		
+		if (!email.matches(emailRegex)) {
+			throw new IllegalArgumentException("Registration Failed: Username must be a valid email address.");
+		}
+		
+		return new User(email, password, firstName, lastName, mobileNumber);
+	}
+	
 }

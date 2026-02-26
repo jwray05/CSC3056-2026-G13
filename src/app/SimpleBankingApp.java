@@ -48,7 +48,6 @@ public class SimpleBankingApp {
 		
 		for (int i = 0; i < users.size(); i++) {
 			User u = users.get(i);
-			// Format the data retrieved from the getters to match the header columns
 			System.out.println(String.format("%-25s| %-15s| %-15s| %-15s| %-15s", 
 					u.getUsername(), u.getPassword(), u.getFirst_name(), u.getLast_name(), u.getMobile_number()));	
 		}
@@ -84,19 +83,16 @@ public class SimpleBankingApp {
 		System.out.println(String.format("%-10s| %-30s| %-10s| %-15s| %-15s", 
 				"Account #", "username_of_account_holder", "type", "opening_date", "Balance"));
 		System.out.println("--------------------------------------------------------------------------------");
-		
-		// Create the date formatter here in the presentation layer
 		SimpleDateFormat sdf = new SimpleDateFormat("(MMM dd, yyyy)");
 		
 		for (int i = 0; i < accounts.size(); i++) {
 			Account a = accounts.get(i);
 			String formattedDate = sdf.format(a.getAccount_opening_date());
 			
-			// Format the account details to align with the headers
 			String formattedAccountInfo = String.format("%-10s| %-30s| %-10s| %-15s", 
 					a.getAccount_number(), a.getUsername_of_account_holder(), a.getAccount_type(), formattedDate);
 			
-			// FIX: Call getBalance from AccountController and pass the transactions Vector!
+			
 			double accountBalance = AccountController.getBalance(a.getAccount_number(), transactions);
 			System.out.println(formattedAccountInfo + "| $" + accountBalance);
 		}
@@ -137,21 +133,43 @@ public class SimpleBankingApp {
 	
 	
 	//////////////////////////////////////////////////////
-	// Inside your SimpleBankingApp class...
+	
 
 	public static void main(String[] args) {
-	    // 1. Ask the UserController for the data, and store it in our local Vector
 	    users = UserController.loadUserData();
+	    
+	    System.out.println("\n--- Testing User Registration ---");
+	    
+	    // Attempt to register a valid user
+	    try {
+	    	model.User validUser = UserController.registerUser("new.user@gmail.com", "secure123", "New", "User", "07779998888");
+	    	users.add(validUser); 
+	    	System.out.println("Successfully registered: " + validUser.getUsername());
+	    } catch (IllegalArgumentException e) {
+	    	System.out.println(e.getMessage());
+	    }
+	    
+	    // Attempt to register an invalid user
+	    try {
+	    	System.out.println("Attempting to register user 'bad_email'...");
+	    	model.User invalidUser = UserController.registerUser("bad_email", "password", "Bad", "Email", "0000");
+	    	users.add(invalidUser);
+	    } catch (IllegalArgumentException e) {
+	    	System.out.println("Caught Expected Error: " + e.getMessage());
+	    }
+	    
+	    System.out.println("\nUsers after registration attempts:");
+	    printAllUsers();
+	    System.out.println("---------------------------------\n");
+	    
+	    
 	    printAllUsers();
 	    
-	    // 2. Ask the AccountController for the data, and store it
 	    accounts = AccountController.loadAccountData();
 	    System.out.println("Accounts: initial state, after loading...");
-	    printAllAccounts(); // Note: You'll need to update printAllAccounts to pass 'transactions' into getBalance()!
+	    printAllAccounts(); 
 	    
-	 // 3. To add a transaction, ask the controller to make it, then add it to our list
 	    try {
-	        // Notice the third argument 'transactions' is now passed in
 	        transactions.add(AccountController.addTransaction("5495-1234", -50.21, transactions));
 	    } catch (Exception e) {
 	        System.out.println(e.getMessage());
