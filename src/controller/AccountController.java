@@ -36,7 +36,18 @@ public class AccountController {
 	 * @param amount
 	 * @return The newly created Transaction
 	 */
-	public static Transaction addTransaction(String account_number, double amount) { 
+//	public static Transaction addTransaction(String account_number, double amount) { 
+//		Transaction aTransaction = new Transaction(account_number, amount, Calendar.getInstance().getTime());
+//		return aTransaction;
+//	}
+	public static Transaction addTransaction(String account_number, double amount, Vector<Transaction> transactions) throws Exception { 
+		if (amount < 0) {
+			double currentBalance = getBalance(account_number, transactions);
+			if (currentBalance + amount < 0) {
+				throw new Exception("Transaction failed: Insufficient funds. Overdrafts are not permitted.");
+			}
+		}
+		
 		Transaction aTransaction = new Transaction(account_number, amount, Calendar.getInstance().getTime());
 		return aTransaction;
 	}

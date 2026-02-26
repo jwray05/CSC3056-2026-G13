@@ -149,8 +149,14 @@ public class SimpleBankingApp {
 	    System.out.println("Accounts: initial state, after loading...");
 	    printAllAccounts(); // Note: You'll need to update printAllAccounts to pass 'transactions' into getBalance()!
 	    
-	    // 3. To add a transaction, ask the controller to make it, then add it to our list
-	    transactions.add(AccountController.addTransaction("5495-1234", -50.21));
+	 // 3. To add a transaction, ask the controller to make it, then add it to our list
+	    try {
+	        // Notice the third argument 'transactions' is now passed in
+	        transactions.add(AccountController.addTransaction("5495-1234", -50.21, transactions));
+	    } catch (Exception e) {
+	        System.out.println(e.getMessage());
+	    }
+	    
 	    System.out.println("Account: after the 1st addTransaction function call...");
 	    printAllAccounts();
 	}
