@@ -133,5 +133,50 @@ public class AccountControllerTest {
 					System.out.println(TestUtils.TEXT_COLOR_RED + "testOverdraftPrevention: TC1 FAILED (Threw an exception, but for the wrong reason)" + TestUtils.TEXT_COLOR_RESET);
 				}
 			}
+		}
+			
+			public static void testCloseAccountWithNonZeroBalance() {
+				Vector<Account> testAccounts = new Vector<>();
+				testAccounts.add(new Account("5495-1234", "mike@gmail.com", "Standard", java.util.Calendar.getInstance().getTime()));
+				
+				Vector<Transaction> testTransactions = new Vector<>();
+				
+				try {
+					
+					testTransactions.add(AccountController.addTransaction("5495-1234", 10.0, testTransactions));
+					
+					
+					AccountController.closeAccount("5495-1234", testAccounts, testTransactions);
+					
+					
+					System.out.println(TestUtils.TEXT_COLOR_RED + "testCloseAccountWithNonZeroBalance: TC1 FAILED (Allowed closing with non-zero balance)" + TestUtils.TEXT_COLOR_RESET);
+				} catch (Exception e) {
+					
+					if (e.getMessage().contains("Balance must be exactly £0.00")) {
+						System.out.println(TestUtils.TEXT_COLOR_GREEN + "testCloseAccountWithNonZeroBalance: TC1 passed" + TestUtils.TEXT_COLOR_RESET);
+					} else {
+						System.out.println(TestUtils.TEXT_COLOR_RED + "testCloseAccountWithNonZeroBalance: TC1 FAILED (Wrong exception message)" + TestUtils.TEXT_COLOR_RESET);
+					}
+				}
+			}
+
+			public static void testCloseAccountSuccess() {
+				Vector<Account> testAccounts = new Vector<>();
+				testAccounts.add(new Account("5495-6789", "mike@gmail.com", "Saving", java.util.Calendar.getInstance().getTime()));
+				
+				Vector<Transaction> testTransactions = new Vector<>(); 
+				
+				try {
+				
+					boolean result = AccountController.closeAccount("5495-6789", testAccounts, testTransactions);
+	
+					if (result && testAccounts.isEmpty()) {
+						System.out.println(TestUtils.TEXT_COLOR_GREEN + "testCloseAccountSuccess: TC1 passed" + TestUtils.TEXT_COLOR_RESET);
+					} else {
+						System.out.println(TestUtils.TEXT_COLOR_RED + "testCloseAccountSuccess: TC1 FAILED (Account not removed)" + TestUtils.TEXT_COLOR_RESET);
+					}
+				} catch (Exception e) {
+					System.out.println(TestUtils.TEXT_COLOR_RED + "testCloseAccountSuccess: TC1 FAILED with exception: " + e.getMessage() + TestUtils.TEXT_COLOR_RESET);
+				}
 	}
 }

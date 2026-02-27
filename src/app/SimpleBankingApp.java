@@ -140,7 +140,6 @@ public class SimpleBankingApp {
 	    
 	    System.out.println("\n--- Testing User Registration ---");
 	    
-	    // Attempt to register a valid user
 	    try {
 	    	model.User validUser = UserController.registerUser("new.user@gmail.com", "secure123", "New", "User", "07779998888");
 	    	users.add(validUser); 
@@ -148,8 +147,7 @@ public class SimpleBankingApp {
 	    } catch (IllegalArgumentException e) {
 	    	System.out.println(e.getMessage());
 	    }
-	    
-	    // Attempt to register an invalid user
+	
 	    try {
 	    	System.out.println("Attempting to register user 'bad_email'...");
 	    	model.User invalidUser = UserController.registerUser("bad_email", "password", "Bad", "Email", "0000");
@@ -161,9 +159,6 @@ public class SimpleBankingApp {
 	    System.out.println("\nUsers after registration attempts:");
 	    printAllUsers();
 	    System.out.println("---------------------------------\n");
-	    
-	    
-	    printAllUsers();
 	    
 	    accounts = AccountController.loadAccountData();
 	    System.out.println("Accounts: initial state, after loading...");
@@ -177,5 +172,33 @@ public class SimpleBankingApp {
 	    
 	    System.out.println("Account: after the 1st addTransaction function call...");
 	    printAllAccounts();
+	    
+
+	    System.out.println("\n--- Testing Account Closure ---");
+	    
+
+	    try {
+	        System.out.println("Attempting to close account '5495-1239' (Balance is £0.0)...");
+	        AccountController.closeAccount("5495-1239", accounts, transactions);
+	        System.out.println("Successfully closed account 5495-1239.");
+	    } catch (Exception e) {
+	        System.out.println(e.getMessage());
+	    }
+	    
+
+	    try {
+	       
+	        transactions.add(AccountController.addTransaction("5495-1291", 50.00, transactions));
+	        
+	        System.out.println("Attempting to close account '5495-1291' (Balance is £50.0)...");
+	        AccountController.closeAccount("5495-1291", accounts, transactions);
+	    } catch (Exception e) {
+	        System.out.println("Caught Expected Error: " + e.getMessage());
+	    }
+	    
+	    System.out.println("\nAccounts after closure attempts:");
+	    printAllAccounts();
+	    System.out.println("---------------------------------\n");
+	    
 	}
 }

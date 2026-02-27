@@ -76,4 +76,22 @@ public class AccountController {
 		double finalBalance = tempIntBalance / 100.00;
 		return finalBalance;
 	}
+	
+	
+	public static boolean closeAccount(String account_number, Vector<Account> accounts, Vector<Transaction> transactions) throws Exception {
+		double currentBalance = getBalance(account_number, transactions);
+		
+		if (currentBalance != 0.0) {
+			throw new Exception("Account closure failed: Balance must be exactly £0.00. Current balance is £" + currentBalance);
+		}
+		
+		for (int i = 0; i < accounts.size(); i++) {
+			if (accounts.get(i).getAccount_number().equals(account_number)) {
+				accounts.remove(i);
+				return true;
+			}
+		}
+		
+		throw new Exception("Account closure failed: Account not found.");
+	}
 }

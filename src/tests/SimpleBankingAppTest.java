@@ -14,6 +14,8 @@ public class SimpleBankingAppTest {
 		AccountControllerTest.testDeposits();
 		AccountControllerTest.testWithdrawals(); 
 		AccountControllerTest.testOverdraftPrevention();
+		AccountControllerTest.testCloseAccountWithNonZeroBalance();
+        AccountControllerTest.testCloseAccountSuccess();
 		
 		System.out.println("\nAll test suites completed.");
 	}
