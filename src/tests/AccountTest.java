@@ -25,7 +25,7 @@ public class AccountTest {
 		
 		Account testAccount = new Account(test_account_number,test_username_of_account_holder,test_account_type, test_account_opening_date);
 		
-		//3-Verify (Assert)
+		
 		System.out.println("Starting the assertions of the test method: testUserConstructor");
 		
 		String test_case_name = "TC1-getAccount_number";

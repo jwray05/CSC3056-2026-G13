@@ -23,7 +23,7 @@ public static void testUserConstruction() {
 	System.out.println(testUser);
 	*/
 	
-	//automated testing
+	
 	//1-Setup
 	String test_username = "mike";
 	String test_password = "my_password";
@@ -31,7 +31,7 @@ public static void testUserConstruction() {
 	String test_last_name = "Smith";
 	String test_mobile_number = "07771234567";
 	
-	//2-Exercise, run the object under test (constructor)
+	//2-Exercise
 	User testUser = new User(test_username, test_password, test_first_name, test_last_name, test_mobile_number);
 	
 	//3-Verify (Assert)
